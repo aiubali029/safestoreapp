@@ -4,8 +4,8 @@ import 'package:my_project/model/home_model.dart';
 
 class HomeProvider extends ChangeNotifier{
   HomeModel? homeModel;
- Future<HomeModel> getHome(){
-   return homeModel = APIService.getHomeData();
+ Future<HomeModel> getHome() async {
+   return homeModel = await APIService.getHomeData();
   //  notifyListeners();
   }
 }

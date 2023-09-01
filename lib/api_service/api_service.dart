@@ -9,16 +9,16 @@ class APIService{
 
     String url = '$base_url/home?country_code=bd';
 
-    // try{
+     try{
       var response = await client.get(
           Uri.parse(url),headers:{'Content-Type': 'application/json'},);
       var data = jsonDecode(response.body);
       print("Home Data $data");
       return HomeModel.fromMap(data["data"]);
-    // }
-    // catch( e){
-    //   print(e);
-    // }
+    }
+    catch( e){
+      print(e);
+    }
 
   }
 }
