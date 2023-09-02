@@ -89,7 +89,7 @@ class Ad {
  // final Customer customer;
   final Category category;
   final Subcategory subcategory;
-  final Brand brand;
+  final Brand? brand;
   final List<Ad> adFeatures;
   final List<Gallery> galleries;
  // final City city;
@@ -178,7 +178,7 @@ class Ad {
    // required this.customer,
     required this.category,
     required this.subcategory,
-    required this.brand,
+    this.brand,
     required this.adFeatures,
     required this.galleries,
   //  required this.city,
@@ -190,30 +190,30 @@ class Ad {
 
   factory Ad.fromMap(Map<String, dynamic> json) => Ad(
     id: json["id"],
-    title: json["title"],
+    title: json["title"]??"",
     userName: json["user_name"],
-    slug: json["slug"],
+    slug: json["slug"]??"",
     userId: json["user_id"],
     model: json["model"],
     categoryId: json["category_id"],
     subcategoryId: json["subcategory_id"],
     brandId: json["brand_id"],
-    currencySymbol: json["currency_symbol"],
+    currencySymbol: json["currency_symbol"]??"",
     price: json["price"],
-    description: json["description"],
-    phone: json["phone"],
-    email: json["email"],
+    description: json["description"]??"",
+    phone: json["phone"]??"",
+    email: json["email"]??"",
     showEmail: json["show_email"],
     showPhone: json["show_phone"],
     phone2: json["phone_2"],
-    thumbnail: json["thumbnail"],
+    thumbnail: json["thumbnail"]??"",
     featured: json["featured"],
     totalReports: json["total_reports"],
     totalViews: json["total_views"],
     isBlocked: json["is_blocked"],
-    whatsapp: json["whatsapp"],
+    whatsapp: json["whatsapp"]??"",
     showWhatsapp: json["show_whatsapp"],
-    status: json["status"],
+    status: json["status"]??"",
     orderId: json["order_id"],
     metaKeywords: json["meta_keywords"],
     metaDescription: json["meta_description"],
@@ -221,19 +221,19 @@ class Ad {
     edition: json["edition"],
     locality: json["locality"],
     neighborhood: json["neighborhood"],
-    address: json["address"],
+    address: json["address"]??"",
     postcode: json["postcode"],
     place: json["place"],
     cityId: json["city_id"],
     regionId: json["region_id"],
     countryId: json["country_id"],
-    countryCode: json["country_code"],
+    countryCode: json["country_code"]??"",
     long: json["long"],
     lat: json["lat"],
     isPromoted: json["is_promoted"],
     draftedAt: json["drafted_at"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
+    createdAt: json["created_at"]??"",
+    updatedAt: json["updated_at"]??"",
     createdBy: json["created_by"],
     updatedBy: json["updated_by"]??0,
     adsType: json["ads_type"],
@@ -264,15 +264,15 @@ class Ad {
     receiveIsPhone: json["receive_is_phone"],
     employerEmail: json["employer_email"],
     employerPhone: json["employer_phone"],
-    cityName: json["city_name"],
-    imageUrl: json["image_url"],
+    cityName: json["city_name"]??"",
+    imageUrl: json["image_url"]??"",
     isWishlist: json["is_wishlist"],
     isCodRequest: json["is_cod_request"],
-    fullAddress: json["full_address"],
+    fullAddress: json["full_address"]??"",
     //customer: Customer.fromJson(json["customer"]),
-    category: Category.fromJson(json["category"]),
-    subcategory: Subcategory.fromJson(json["subcategory"]),
-    brand: json["brand"],
+    category: Category.fromMap(json["category"]),
+    subcategory: Subcategory.fromMap(json["subcategory"]),
+    brand: json["brand"] == null ? null : json["brand"],
     adFeatures: List<Ad>.from(json["ad_features"].map((x) => x)),
     galleries: List<Gallery>.from(json["galleries"].map((x) => Gallery.fromMap(x))),
     //city: City.fromJson(json["city"]),
@@ -375,8 +375,8 @@ class Gallery {
   final int adId;
   final String image;
   final String imageType;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final String createdAt;
+  final String updatedAt;
   final String imageUrl;
 
   Gallery({
@@ -396,11 +396,11 @@ class Gallery {
   factory Gallery.fromMap(Map<String, dynamic> json) => Gallery(
     id: json["id"],
     adId: json["ad_id"],
-    image: json["image"],
-    imageType: json["image_type"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    imageUrl: json["image_url"],
+    image: json["image"]??"",
+    imageType: json["image_type"]??"",
+    createdAt: json["created_at"]??"",
+    updatedAt: json["updated_at"]??"",
+    imageUrl: json["image_url"]??"",
   );
 
   Map<String, dynamic> toMap() => {
@@ -408,8 +408,8 @@ class Gallery {
     "ad_id": adId,
     "image": image,
     "image_type": imageType,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
+    "created_at": createdAt,
+    "updated_at": updatedAt,
     "image_url": imageUrl,
   };
 }

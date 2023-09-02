@@ -11,8 +11,8 @@ class Subcategory {
   final int status;
   final String createdAt;
   final String updatedAt;
-  final List<Brand> brand;
-  final List<dynamic> service;
+  final List<Brand>? brand;
+  final List<dynamic>? service;
 
   Subcategory({
     required this.id,
@@ -22,8 +22,8 @@ class Subcategory {
     required this.status,
     required this.createdAt,
     required this.updatedAt,
-    required this.brand,
-    required this.service,
+    this.brand,
+    this.service,
   });
 
   factory Subcategory.fromJson(String str) => Subcategory.fromMap(json.decode(str));
@@ -38,8 +38,8 @@ class Subcategory {
     status: json["status"],
     createdAt: json["created_at"],
     updatedAt: json["updated_at"],
-    brand: List<Brand>.from(json["brand"].map((x) => Brand.fromMap(x))),
-    service: List<dynamic>.from(json["service"].map((x) => x)),
+    brand: json["brand"] == null ? null : List<Brand>.from(json["brand"].map((x) => Brand.fromMap(x))),
+    service: json["service"] == null ? null : List<dynamic>.from(json["service"].map((x) => x)),
   );
 
   Map<String, dynamic> toMap() => {
@@ -50,7 +50,7 @@ class Subcategory {
     "status": status,
     "created_at": createdAt,
     "updated_at": updatedAt,
-    "brand": List<dynamic>.from(brand.map((x) => x.toMap())),
-    "service": List<dynamic>.from(service.map((x) => x)),
+    "brand": List<dynamic>.from(brand!.map((x) => x.toMap())),
+    "service": List<dynamic>.from(service!.map((x) => x)),
   };
 }

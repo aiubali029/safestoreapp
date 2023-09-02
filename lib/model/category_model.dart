@@ -17,7 +17,7 @@ class Category {
   final dynamic createdBy;
   final dynamic updatedBy;
   final String imageUrl;
-  final List<Subcategory> subcategories;
+  final List<Subcategory>? subcategories;
 
   Category({
     required this.id,
@@ -33,7 +33,7 @@ class Category {
     required this.createdBy,
     required this.updatedBy,
     required this.imageUrl,
-    required this.subcategories,
+    this.subcategories,
   });
 
   factory Category.fromJson(String str) => Category.fromMap(json.decode(str));
@@ -54,7 +54,7 @@ class Category {
     createdBy: json["created_by"],
     updatedBy: json["updated_by"],
     imageUrl: json["image_url"],
-    subcategories: List<Subcategory>.from(json["subcategories"].map((x) => Subcategory.fromMap(x))),
+    subcategories: json["subcategories"] ==null?null: List<Subcategory>.from(json["subcategories"].map((x) => Subcategory.fromMap(x))),
   );
 
   Map<String, dynamic> toMap() => {
@@ -71,7 +71,7 @@ class Category {
     "created_by": createdBy,
     "updated_by": updatedBy,
     "image_url": imageUrl,
-    "subcategories": List<dynamic>.from(subcategories.map((x) => x.toMap())),
+    "subcategories": List<dynamic>.from(subcategories!.map((x) => x.toMap())),
   };
 }
 

@@ -37,9 +37,9 @@ class HomeModel {
 
   factory HomeModel.fromMap(Map<String, dynamic> json) => HomeModel(
  //   ads: List<Ad>.from(json["ads"].map((x) => Ad.fromJson(x))),
-    categories: List<Category>.from(json["categories"].map((x) => Category.fromMap(x))),
-    featureAds: List<Ad>.from(json["featureAds"].map((x) => Ad.fromMap(x))),
-    latestAds: List<Ad>.from(json["latestAds"].map((x) => Ad.fromMap(x))),
+    categories: json["categories"] ==null?[]: List<Category>.from(json["categories"].map((x) => Category.fromMap(x))),
+    featureAds: json["featureAds"] ==null?[]: List<Ad>.from(json["featureAds"].map((x) => Ad.fromMap(x))),
+    latestAds: json["latestAds"] ==null?[]: List<Ad>.from(json["latestAds"].map((x) => Ad.fromMap(x))),
     // verifiedUsers: json["verified_users"],
     // topCountry: List<TopCountry>.from(json["topCountry"].map((x) => TopCountry.fromJson(x))),
     // banner: json["banner"],

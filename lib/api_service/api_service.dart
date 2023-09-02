@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:my_project/consts/constants.dart';
@@ -13,7 +14,7 @@ class APIService{
       var response = await client.get(
           Uri.parse(url),headers:{'Content-Type': 'application/json'},);
       var data = jsonDecode(response.body);
-      print("Home Data $data");
+      print("Home Data ${data['data']}");
       return HomeModel.fromMap(data["data"]);
     }
     catch( e){
