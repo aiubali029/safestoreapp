@@ -14,16 +14,17 @@ class _HomeState extends State<Home> {
 
   String dropdownValue = 'Enter City';
 
-      List icons =[''
-          'images/education.png',
-          'images/customer-support.png',
-          'images/calendar.png',
-          'images/house.png',
-          'images/playtime.png',
+      // List icons =[''
+      //     'images/education.png',
+      //     'images/customer-support.png',
+      //     'images/calendar.png',
+      //     'images/house.png',
+      //     'images/playtime.png',
+      //         ];
 
-      ];
+      //List data =['Electronics','Properties','Event and Travel','Services','Kids and Babies','Online Services','Auto Mobiles','Home and Garden','Pets and Animals','Construtions','Food and Agriculture  Food and Agriculture Food and Agriculture',];
 
-      List data =['Electronics','Properties','Event and Travel','Services','Kids and Babies','Online Services','Auto Mobiles','Home and Garden','Pets and Animals','Construtions','Food and Agriculture  Food and Agriculture Food and Agriculture',];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,19 +145,18 @@ class _HomeState extends State<Home> {
                               mainAxisExtent: 100,
                               crossAxisSpacing: 5,
                               mainAxisSpacing: 5),
-                          itemCount: data.length,
+                          itemCount: snapshot.data!.categories.length,
                           itemBuilder: (context, index) {
                             return Container(
                               child: Column(
                                 children: [
-                                  const Icon(
-                                    Icons.settings,
-                                    size: 50,
-                                  ),
+                                 CircleAvatar(
+                                   backgroundImage: NetworkImage(snapshot.data!.categories[index].imageUrl),
+                                 ),
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  SizedBox(child: Text(data[index],textAlign: TextAlign.center, maxLines: 1,overflow: TextOverflow.ellipsis,))
+                                  SizedBox(child: Text(snapshot.data!.categories[index].name,textAlign: TextAlign.center, maxLines: 1,overflow: TextOverflow.ellipsis,))
                                 ],
                               ),
                             );
@@ -183,7 +183,7 @@ class _HomeState extends State<Home> {
                     SizedBox(
                       height: 250,
                       child: CarouselSlider(items:
-                      List.generate(icons.length, (index) => Image.asset(icons[index])),
+                      List.generate(snapshot.data!.featureAds.length, (index) => Image.network(snapshot.data!.featureAds[index].imageUrl)),
 
                         options: CarouselOptions(
                           autoPlay: true,
@@ -223,7 +223,7 @@ class _HomeState extends State<Home> {
                                 crossAxisSpacing: 5,
                                 mainAxisSpacing: 5,
                             ),
-                            itemCount: data.length,
+                            itemCount: snapshot.data!.latestAds.length,
                             itemBuilder: (context, index) {
                               return Container(
 
@@ -240,12 +240,16 @@ class _HomeState extends State<Home> {
                                     children: [
                                       Container(
                                         height: 120,
-                                        decoration: const BoxDecoration(
+                                        decoration:  BoxDecoration(
                                             image: DecorationImage(
                                               image: NetworkImage(
-                                                'https://media.licdn.com/dms/image/D5603AQFHONg9l_JaYg/profile-displayphoto-shrink_800_800/0/1685267289329?e=2147483647&v=beta&t=Bzsy3L9Nf3ZaSR84_Ux8qQX5zg6Ct7fYqfWeF7GUHGQ',),
+                                          //      'https://media.licdn.com/dms/image/D5603AQFHONg9l_JaYg/profile-displayphoto-shrink_800_800/0/1685267289329?e=2147483647&v=beta&t=Bzsy3L9Nf3ZaSR84_Ux8qQX5zg6Ct7fYqfWeF7GUHGQ',),
+
+                                                '${snapshot.data!.latestAds[index].imageUrl}',
+                                              ),
                                               fit: BoxFit.cover,
-                                            )
+
+                                              ),
                                         ),
                                       ),
                                       Container(
@@ -254,8 +258,8 @@ class _HomeState extends State<Home> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              const Text(
-                                                "BDT 120",
+                                               Text(
+                                                '${snapshot.data!.latestAds[index].currencySymbol} ${snapshot.data!.latestAds[index].price}',
                                                 style: TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.green),
@@ -263,8 +267,10 @@ class _HomeState extends State<Home> {
                                               const SizedBox(
                                                 height: 5,
                                               ),
-                                              const Text(
-                                                "Discovered the \nundoubted so..",
+                                               Text(
+                                                '${snapshot.data!.latestAds[index].title}',
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black),
@@ -272,12 +278,12 @@ class _HomeState extends State<Home> {
                                               const SizedBox(
                                                 height: 5,
                                               ),
-                                              const Row(
+                                               Row(
                                                 children: [
                                                   Icon(
                                                     Icons.location_city,
                                                   ),
-                                                  Text("Mohakhali")
+                                                  Expanded(child: Text('${snapshot.data!.latestAds[index].address}',maxLines: 1,))
                                                 ],
                                               ),
                                               Row(
@@ -305,7 +311,7 @@ class _HomeState extends State<Home> {
                                                     child: const Icon(Icons.favorite,size: 15,),
                                                   ),
                                                 ],
-                                              )
+                                              ),
                                             ],
                                           ),
                                         ),
